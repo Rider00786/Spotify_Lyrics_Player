@@ -19,9 +19,10 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parents[2] / ".env", override=True)
 
 
-POLL_SECONDS = 0.5
-CHARACTER_DELAY_SECONDS = 0.05
-LYRICS_DELAY_MS = int(os.getenv("LYRICS_DELAY_MS", "1500"))
+POLL_SECONDS = 0.2
+CHARACTER_DELAY_SECONDS = float(os.getenv("CHARACTER_DELAY_SECONDS", "0.04"))
+LYRICS_DELAY_MS = int(os.getenv("LYRICS_DELAY_MS", "0"))
+LYRICS_PROVIDERS = ["Lrclib", "NetEase", "Megalobiz", "Genius"]
 TIMESTAMP_PATTERN = re.compile(r"\[(\d+):(\d{2})(?:\.(\d{1,3}))?\](.*)")
 LYRICS_CACHE: dict[str, list["LyricLine"]] = {}
 
@@ -96,7 +97,9 @@ def fetch_lyrics(track: dict) -> list[LyricLine]:
         LYRICS_CACHE[track_id] = lyrics
         return lyrics
 
-    raw_lyrics = syncedlyrics.search(f"{artists} {track['name']}")
+    raw_lyrics = syncedlyrics.search(
+        f"{artists} {track['name']}", providers=LYRICS_PROVIDERS
+    )
     if not raw_lyrics:
         LYRICS_CACHE[track_id] = []
         return []
