@@ -9,6 +9,7 @@ description = "Display synchronized lyrics for the Spotify song currently playin
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "Pillow>=10.0",
     "spotipy>=2.23",
     "syncedlyrics>=1.0",
     "python-dotenv>=1.0",

@@ -31,5 +31,15 @@ The first run opens Spotify authorization in a browser. Play a song on an accoun
 
 For a local mock run, set `MUSIC_TEST_MODE=1` before starting the module.
 
+Set `DISPLAY_MODE=overlay` in `.env` to open a translucent, always-on-top,
+resizable lyric window. Resize it from any edge or corner. Use the `Display`
+menu inside the overlay to switch back to terminal output; close and relaunch
+to open the overlay again.
+
+To start the watcher automatically when you sign in to Windows, run
+`install_autostart.cmd` once. The watcher stays hidden and launches the lyrics
+app only when Spotify is running. The overlay then appears when playback
+starts and hides again when playback stops.
+
 If lyrics appear before the vocals, set `LYRICS_DELAY_MS` in `.env` to a larger
 value, for example `2000`. Set it to `0` to disable the correction.
